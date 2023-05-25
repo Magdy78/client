@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import{ BrowserRouter,Routes,Route,useLocation } from 'react-router-dom';
+import Home from "./scenes/home/Home";
+import ItemDetails from "./scenes/itemDetails/ItemDetails";
+import Checkout from "./scenes/checkout/Checkout";
+import Confirm from "./scenes/checkout/Confirm";
+import Navbar from "./scenes/gloabl/Navbar";
+import CartMenu from "./scenes/gloabl/CartMenu";
+import Footer from "./scenes/gloabl/Footer"
+
+const ScrollToTop = () => {
+const{ pathname } = useLocation();
+useEffect(() => {
+  window.scrollTo(0,0);
+},[pathname])
+return null;
+}
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <BrowserRouter>
+      <Navbar/>
+      <ScrollToTop/>
+      <Routes>
+        <Route path="/" element={<Home/>}></Route>
+        <Route path="item/:itemId" element={<ItemDetails/>}></Route>
+        <Route path="checkout" element={<Checkout/>}></Route>
+        <Route path="checkout/confirm" element={<Confirm/>}></Route>
+      </Routes>
+      <CartMenu/>
+      <Footer/>
+      </BrowserRouter>
     </div>
   );
 }
